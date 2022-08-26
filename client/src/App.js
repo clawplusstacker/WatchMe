@@ -13,7 +13,6 @@ import db from './firebase'
 import { Spin } from "antd";
 
 
-
 function App() {
   const {user} = UserAuth();
   const [data, setData] = useState()
