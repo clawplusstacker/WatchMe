@@ -12,15 +12,15 @@ export default function EditDetails() {
 
             <Form
                 labelCol={{
-                span: 4,
+                    span: 4,
                 }}
                 wrapperCol={{
-                span: 14,
+                    span: 14,
                 }}
                 layout="horizontal"
             >
 
-                <Form.Item label="Caloriess">
+                <Form.Item label="Calories">
                     <Input />
                 </Form.Item>
 
