@@ -1,0 +1,17 @@
+.navContainer{
+    width: 100%;
+    height: 12vh;
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+}
+.navContainer h1{
+    color: white !important;
+    text-transform: uppercase;
+    margin: 0;
+}
+.logOut{
+    color: green !important;
+}
