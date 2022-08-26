@@ -17,6 +17,7 @@ import { Spin } from "antd";
 function App() {
   const {user} = UserAuth();
   const [data, setData] = useState()
+  const [refetch, setRefetch] = useState(false)
   const [loading, setLoading] = useState(false);
 
 
@@ -36,7 +37,7 @@ function App() {
     }
 
     fetchUserData();
-  }, [user]);
+  }, [user, refetch]);
 
 
   return (
@@ -65,7 +66,7 @@ function App() {
           }></Route>
           <Route path="/answer" element={
             <Protected>
-              <CompletedToday />
+              <CompletedToday refetch={() => {setRefetch(!refetch)}}/>
             </Protected>
           }></Route>
           <Route path="/editDetails" element={

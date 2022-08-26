@@ -6,7 +6,7 @@ import { collection, doc, getDoc, updateDoc } from '@firebase/firestore';
 import db from '../../firebase'
 import { UserAuth } from '../../contexts/AuthContext';
 
-export default function CompletedToday() {
+export default function CompletedToday({refetch}) {
 
 
     const {user} = UserAuth();
@@ -22,7 +22,7 @@ export default function CompletedToday() {
     
             await updateDoc(doc(usersRef, user.uid), 
                 {
-                    completed: ans ? new Date() : "fail",
+                    completed: ans ? String(new Date()) : "fail",
                 }
                 );
                 
@@ -41,10 +41,10 @@ export default function CompletedToday() {
                 <Button
                     onClick={async () => {
                         await setCompleted(true);
+                        refetch()
                         nav('/congrats')
 
                     }}
-    
                 >
                     Yes
                 </Button>
@@ -52,6 +52,7 @@ export default function CompletedToday() {
                 <Button
                     onClick={async () => {
                         await setCompleted(false)
+                        refetch()
                         nav('/fail')
                     }}
                 >
