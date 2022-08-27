@@ -1,5 +1,4 @@
 {
-  "homepage": "https://clawplusstacker.github.io/WatchMe/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.22.7",
     "firebase": "^9.9.3",
-    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
