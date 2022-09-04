@@ -31,7 +31,6 @@ function App() {
           const docSnap = await getDoc(docRef)
           setData(docSnap.data());
           setLoading(false)
-          console.log(data)
       }
       
     }
