@@ -31,6 +31,7 @@ function App() {
           const docSnap = await getDoc(docRef)
           setData(docSnap.data());
           setLoading(false)
+          console.log(data)
       }
       
     }
@@ -44,7 +45,7 @@ function App() {
     <>
       <NavBar />
 
-      {loading || !data ? 
+      {loading ? 
       
       <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <Spin/> 
@@ -54,6 +55,9 @@ function App() {
         <Routes>
           <Route path ="/login" element={<LoginPage />}></Route>
           <Route path="/" element={
+            
+            !user || !data ? <Navigate to='/login' /> : 
+          
             data.completed === "fail" ? 
               <Navigate to="/fail"></Navigate>
             : new Date(data.completed).toLocaleDateString() < new Date().toLocaleDateString() ? 
@@ -85,7 +89,8 @@ function App() {
           }></Route>
         </Routes>
       </>
-  }
+
+        }
     </>
   
   );
