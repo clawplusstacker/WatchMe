@@ -35,6 +35,7 @@ export default function LoginPage() {
         setLoading(true);
         await createUser(user);
         navigate('/')
+        setLoading(false)
       }
     }
 
@@ -47,6 +48,10 @@ export default function LoginPage() {
 
   async function createUser(user){
 
+    const today = new Date()
+    const yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1)
+
     var usersRef = collection(db, 'users')
 
     var docRef = await getDoc(doc(db, 'users', user.uid))
@@ -57,7 +62,9 @@ export default function LoginPage() {
             {
               name: user.displayName,
               imageURL: user.photoURL,
-              email: user.email
+              email: user.email,
+              completed: String(yesterday)
+
             }
           );
 

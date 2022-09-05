@@ -14,6 +14,7 @@ import { Spin } from "antd";
 
 
 function App() {
+
   const {user} = UserAuth();
   const [data, setData] = useState()
   const [refetch, setRefetch] = useState(false)
@@ -32,11 +33,25 @@ function App() {
           setData(docSnap.data());
           setLoading(false)
       }
-      
     }
 
     fetchUserData();
   }, [user, refetch]);
+
+
+  function getNavigate(data){
+
+
+    if(data.completed === "fail"){
+      return "/fail"
+    }else if(new Date(data.completed).toLocaleDateString() < new Date().toLocaleDateString()){
+      return "/answer"
+    }else if(new Date(data.completed).toLocaleDateString() === new Date().toLocaleDateString()){
+      return "/congrats"
+    }else{
+      return "/answer"
+    }
+  }
 
 
   return (
@@ -44,52 +59,46 @@ function App() {
     <>
       <NavBar />
 
-      {loading ? 
-      
-      <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <Spin/> 
-      </div>
+      {loading  ? 
+        
+        <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <Spin/> 
+        </div>
       :
-      <>
-        <Routes>
-          <Route path ="/login" element={<LoginPage />}></Route>
-          <Route path="/" element={
-            
-            !user || !data ? <Navigate to='/login' /> : 
-          
-            data.completed === "fail" ? 
-              <Navigate to="/fail"></Navigate>
-            : new Date(data.completed).toLocaleDateString() < new Date().toLocaleDateString() ? 
-              <Navigate to="/answer"></Navigate>
-            : new Date(data.completed).toLocaleDateString() === new Date().toLocaleDateString() ?
-              <Navigate to="/congrats"></Navigate>
-            :
-              <Navigate to="/answer"></Navigate>
-          }></Route>
-          <Route path="/answer" element={
-            <Protected>
-              <CompletedToday refetch={() => {setRefetch(!refetch)}}/>
-            </Protected>
-          }></Route>
-          <Route path="/editDetails" element={
-            <Protected>
-              <EditDetails />
-            </Protected>
-          }></Route>
-          <Route path="/congrats" element={
-            <Protected>
-              <SuccessPage />
-            </Protected>
-          }></Route>
-          <Route path="/fail" element={
-            <Protected>
-              <FailPage />
-            </Protected>        
-          }></Route>
-        </Routes>
-      </>
 
-        }
+        <>
+          <Routes>
+            <Route path ="/login" element={<LoginPage />}></Route>
+            <Route path="/" element={
+              !user ? 
+                <Navigate to='/login' /> 
+              : 
+                <Navigate to={getNavigate(data)} />
+            }></Route>
+            <Route path="/answer" element={
+              <Protected>
+                <CompletedToday refetch={() => {setRefetch(!refetch)}}/>
+              </Protected>
+            }></Route>
+            <Route path="/editDetails" element={
+              <Protected>
+                <EditDetails />
+              </Protected>
+            }></Route>
+            <Route path="/congrats" element={
+              <Protected>
+                <SuccessPage />
+              </Protected>
+            }></Route>
+            <Route path="/fail" element={
+              <Protected>
+                <FailPage />
+              </Protected>        
+            }></Route>
+          </Routes>
+        </>
+
+      }
     </>
   
   );
