@@ -8,7 +8,7 @@ export default function SuccessPage() {
         <div className={styles.mainContainer}>
 
             <h1>Congratulations!</h1>
-            <h1>You Compelted Your Goals Today :)</h1>
+            <h1>You Completed Your Goals Today :)</h1>
 
             <Link to="/editDetails">
                 Edit Details About Your Day Here
