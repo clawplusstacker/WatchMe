@@ -45,14 +45,15 @@ function App() {
     }
 
 
+
     if(new Date(data.completed).getDate() - new Date().getDate() == 1){
       return "/editDetails"
-    }else if(new Date(data.completed).toLocaleDateString() === new Date().toLocaleDateString()){
-      return "/congrats"
     }else{
       return "/editDetails"
     }
   }
+
+
 
 
   return (
