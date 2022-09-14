@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 import Protected from "./Components/Protected";
-import CompletedToday from "./Pages/CompletedToday.jsx/CompletedToday";
 import EditDetails from "./Pages/EditDetails/EditDetails";
 import FailPage from "./Pages/FailPage/FailPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
@@ -41,15 +40,17 @@ function App() {
 
   function getNavigate(data){
 
-
-    if(data.completed === "fail"){
+    if(!data){
       return "/fail"
-    }else if(new Date(data.completed).toLocaleDateString() < new Date().toLocaleDateString()){
-      return "/answer"
+    }
+
+
+    if(new Date(data.completed).getDate() - new Date().getDate() == 1){
+      return "/editDetails"
     }else if(new Date(data.completed).toLocaleDateString() === new Date().toLocaleDateString()){
       return "/congrats"
     }else{
-      return "/answer"
+      return "/editDetails"
     }
   }
 
@@ -75,14 +76,9 @@ function App() {
               : 
                 <Navigate to={getNavigate(data)} />
             }></Route>
-            <Route path="/answer" element={
-              <Protected>
-                <CompletedToday refetch={() => {setRefetch(!refetch)}}/>
-              </Protected>
-            }></Route>
             <Route path="/editDetails" element={
               <Protected>
-                <EditDetails />
+                <EditDetails data={data} refetch={() => setRefetch(!refetch)}/>
               </Protected>
             }></Route>
             <Route path="/congrats" element={
