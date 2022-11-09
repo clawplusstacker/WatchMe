@@ -44,8 +44,6 @@ function App() {
       return "/fail"
     }
 
-
-
     if(new Date(data.completed).getDate() - new Date().getDate() == 1){
       return "/editDetails"
     }else{
